@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2i0QugxpA2eMSltq9jRDFJuPQVZnQbBFENaSTj58Aby+4F+dArB8O2yNDcniqAP6IO/cILeQJa6YSo/eZ0DHmg==",
+  "dgSpecHash": "biSDwnykKg5DIbfj1vFGjyeZ3bmL+F4D6r6uJKfa/L3RDTbpmvDuc6VmR/Gg80gIbDBU40Rlx2zaHr7wVdK1Lg==",
   "success": true,
   "projectFilePath": "/Users/vlad/RiderProjects/WebApi/App/App.csproj",
   "expectedPackageFiles": [
+    "/Users/vlad/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/vlad/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/vlad/.nuget/packages/microsoft.aspnetcore.openapi/8.0.0/microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "/Users/vlad/.nuget/packages/microsoft.bcl.asyncinterfaces/7.0.0/microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

@@ -1,2 +1,8 @@
 2025-04-05 22:47:33.7256|INFO|App.Repository.UserRepository|Get all users
 2025-04-05 22:47:59.9222|INFO|App.Repository.UserRepository|Get user with id 3a10f83f-7ece-4809-a58f-12ac1cd400fd
+2025-04-05 23:25:05.6940|INFO|App.Repository.UserRepository|Get all users
+2025-04-05 23:32:26.3737|INFO|App.Repository.UserRepository|Delete user with id 3a10f83f-7ece-4809-a58f-12ac1cd400fd
+2025-04-05 23:32:31.7194|ERROR|App.Repository.AuthRepository|Invalid login or password for user Hize
+2025-04-05 23:32:54.5654|INFO|App.Repository.AuthRepository|User with login Hize registered successfully
+2025-04-05 23:32:59.1860|INFO|App.Repository.AuthRepository|User Hize logged in successfully
+2025-04-05 23:33:02.8818|INFO|App.Repository.UserRepository|Get all users

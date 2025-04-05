@@ -274,3 +274,5 @@
 /Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/App.pdb
 /Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/App.genruntimeconfig.cache
 /Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/ref/App.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/BCrypt.Net-Next.dll
+/Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/App.sourcelink.json

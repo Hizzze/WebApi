@@ -11,10 +11,12 @@ public class AuthRepository : IAuthRepository
 {
     private readonly UserDbContext _dbContext;
     private readonly ILogger<AuthRepository> _logger;
-    public AuthRepository(UserDbContext dbContext, ILogger<AuthRepository> logger) 
+    private readonly IPasswordHash _passwordHash;
+    public AuthRepository(UserDbContext dbContext, ILogger<AuthRepository> logger, IPasswordHash passwordHash) 
     {
         _dbContext = dbContext;
         _logger = logger;
+        _passwordHash = passwordHash;
     }
 
 
@@ -34,7 +36,7 @@ public class AuthRepository : IAuthRepository
             {
                 Id = Guid.NewGuid(),
                 Login = registerDto.Login,
-                PasswordHash = HashPassword(registerDto.Password),
+                PasswordHash = _passwordHash.Generate(registerDto.Password),
                 Name = registerDto.Name,
                 LastName = registerDto.LastName,
                 Time = DateTime.UtcNow
@@ -53,7 +55,7 @@ public class AuthRepository : IAuthRepository
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Login == loginDto.Login);
         
-        if(user == null || !VerifyPassword(loginDto.Password, user.PasswordHash))
+        if(user == null || !_passwordHash.Verify(loginDto.Password, user.PasswordHash))
         {
             _logger.LogError($"Invalid login or password for user {loginDto.Login}");
             throw new Exception("Invalid login or password");
@@ -62,17 +64,6 @@ public class AuthRepository : IAuthRepository
         _logger.LogInformation($"User {loginDto.Login} logged in successfully");
     }
     
-    private static string HashPassword(string password)
-    {
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(password);
-        var hash = sha256.ComputeHash(bytes);
-        return Convert.ToBase64String(hash);
-    }
-    
-    private static bool VerifyPassword(string password, string hashedPassword)
-    {
-        return HashPassword(password) == hashedPassword;
-    }
+   
 
 }

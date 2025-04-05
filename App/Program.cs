@@ -1,5 +1,6 @@
 using App.Abstractions;
 using App.Database;
+using App.PasswordHasher;
 using App.Repository;
 using Microsoft.EntityFrameworkCore;
 using NLog.Extensions.Logging;
@@ -29,6 +30,7 @@ NLog.LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 
 var app = builder.Build();
 
