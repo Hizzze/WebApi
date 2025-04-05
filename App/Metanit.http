@@ -1,0 +1,6 @@
+@Metanit_HostAddress = http://localhost:5286
+
+GET {{Metanit_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
