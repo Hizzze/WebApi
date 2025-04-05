@@ -1,0 +1,47 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider / JetBrains Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## ASP.NET runtime generated
+wwwroot/lib/
+wwwroot/dist/
+node_modules/
+dist/
+.env
+.env.*
+
+## Logs
+*.log
+logs/
+
+## OS generated
+.DS_Store
+Thumbs.db
+
+## NuGet
+*.nupkg
+packages/
+*.snupkg
+
+## EF Core Migrations (если не хочешь их в гите)
+# Migrations/
+
+## Secret settings (если есть)
+secrets.json
+
+## dotnet watch
+**/*.dotnetwatch.json
