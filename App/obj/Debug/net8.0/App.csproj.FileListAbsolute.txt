@@ -276,3 +276,11 @@
 /Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/ref/App.dll
 /Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /Users/vlad/RiderProjects/WebApi/App/obj/Debug/net8.0/App.sourcelink.json
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/vlad/RiderProjects/WebApi/App/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll

@@ -3,6 +3,7 @@ using System.Text;
 using App.Abstractions;
 using App.Database;
 using App.Models;
+using App.PasswordHasher;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repository;
@@ -10,13 +11,15 @@ namespace App.Repository;
 public class AuthRepository : IAuthRepository
 {
     private readonly UserDbContext _dbContext;
+    private readonly JwtProvider _jwtProvider;
     private readonly ILogger<AuthRepository> _logger;
     private readonly IPasswordHash _passwordHash;
-    public AuthRepository(UserDbContext dbContext, ILogger<AuthRepository> logger, IPasswordHash passwordHash) 
+    public AuthRepository(UserDbContext dbContext, ILogger<AuthRepository> logger, IPasswordHash passwordHash, JwtProvider jwtProvider)
     {
         _dbContext = dbContext;
         _logger = logger;
         _passwordHash = passwordHash;
+        _jwtProvider = jwtProvider;
     }
 
 
@@ -51,7 +54,7 @@ public class AuthRepository : IAuthRepository
     }
     
     
-    public async Task LoginUser(LoginDto loginDto)
+    public async Task<string> LoginUser(LoginDto loginDto)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Login == loginDto.Login);
         
@@ -61,7 +64,11 @@ public class AuthRepository : IAuthRepository
             throw new Exception("Invalid login or password");
         }
         
+        var token = _jwtProvider.GenerateToken(user);
+        
         _logger.LogInformation($"User {loginDto.Login} logged in successfully");
+        
+        return token;
     }
     
    

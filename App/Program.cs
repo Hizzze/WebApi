@@ -8,7 +8,7 @@ using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
@@ -30,6 +30,7 @@ NLog.LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<JwtProvider>();
 builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 
 var app = builder.Build();
