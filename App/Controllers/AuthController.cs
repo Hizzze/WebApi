@@ -3,6 +3,7 @@ using System.Text;
 using App.Abstractions;
 using App.Database;
 using App.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +14,11 @@ namespace App.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly UserDbContext _dbContext;
     private readonly IAuthRepository _authRepository;
 
-    public AuthController(UserDbContext dbContext, IAuthRepository authRepository)
+    public AuthController(IAuthRepository authRepository)
     {
         _authRepository = authRepository;
-        _dbContext = dbContext;
     }
     
     [HttpPost("register")]
@@ -32,9 +31,17 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody]LoginDto loginDto)
     {
+        if (HttpContext.User.Identity?.IsAuthenticated == true)
+        {
+            return BadRequest("User is already logged in");
+        }
+        
+    
        var token =  await _authRepository.LoginUser(loginDto);
        
-       return Ok(new {message = "User logged in successfully", token});
+        HttpContext.Response.Cookies.Append("cookies", token);
+       
+       return Ok(new {message = "User logged in successfully"});
     }
     
 }

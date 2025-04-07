@@ -1,14 +1,21 @@
 using App.Abstractions;
 using App.Database;
+using App.Extentions;
 using App.PasswordHasher;
 using App.Repository;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using NLog.Extensions.Logging;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+var jwtSection = builder.Configuration.GetSection(nameof(JwtOptions));
+var jwtOptions = jwtSection.Get<JwtOptions>();
+
+builder.Services.AddApiAuthentication(Microsoft.Extensions.Options.Options.Create(jwtOptions));
+builder.Services.Configure<JwtOptions>(jwtSection);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
@@ -41,8 +48,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCookiePolicy(new CookiePolicyOptions()
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+    HttpOnly = HttpOnlyPolicy.Always,
+    Secure = CookieSecurePolicy.Always,
+});
+
+
 app.UseHttpsRedirection();
 app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.Run();
