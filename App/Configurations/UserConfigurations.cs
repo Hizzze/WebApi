@@ -15,5 +15,12 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         builder.Property(x => x.Time).IsRequired();
         builder.Property(x => x.Login).HasMaxLength(25).IsRequired();
         builder.Property(x => x.PasswordHash).HasMaxLength(256).IsRequired();
+
+
+        builder.Property(x => x.Role)
+            .HasConversion<string>()
+            .IsRequired();
     }
+    
+    
 }

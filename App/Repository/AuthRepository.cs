@@ -4,6 +4,8 @@ using App.Abstractions;
 using App.Database;
 using App.Models;
 using App.PasswordHasher;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Repository;
@@ -70,7 +72,8 @@ public class AuthRepository : IAuthRepository
         
         return token;
     }
-    
+
+   
    
 
 }

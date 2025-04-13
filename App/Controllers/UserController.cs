@@ -45,6 +45,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<User>> Create([FromBody] UserResponse response)
     { 
         var user = await _userRepository.CreateUser(response);
@@ -52,6 +53,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Guid>> Update(Guid id, [FromBody]UserResponse response)
     {
         var userExists = await _dbContext.Users.AnyAsync(u => u.Id == id);
@@ -67,6 +69,7 @@ public class UserController : ControllerBase
 
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Guid>> Delete(Guid id, CancellationToken token)
     {
       await _userRepository.DeleteUser(id);

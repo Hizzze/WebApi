@@ -37,6 +37,7 @@ NLog.LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<JwtProvider>();
 builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 

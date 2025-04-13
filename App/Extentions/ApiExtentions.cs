@@ -34,11 +34,12 @@ public static class ApiExtentions
 
         services.AddAuthorization(opt =>
         {
-            opt.AddPolicy("Admin", policy =>
+            opt.AddPolicy("AdminOnly", policy =>
             {
-                policy.RequireClaim("Admin", "true");
+                policy.RequireRole("Admin");
             });
-            
         });
     }
+    
+    
 }

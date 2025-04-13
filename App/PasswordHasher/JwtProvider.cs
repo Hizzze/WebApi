@@ -22,7 +22,8 @@ public class JwtProvider
         Claim[] claims = 
         [
             new("Id", user.Id.ToString()),
-            new("Admin", "true")
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+          
         ];
         var singningCredentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),

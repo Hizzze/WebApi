@@ -3,9 +3,7 @@ using System.Text;
 using App.Abstractions;
 using App.Database;
 using App.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace App.Controllers;
 
@@ -43,5 +41,7 @@ public class AuthController : ControllerBase
        
        return Ok(new {message = "User logged in successfully"});
     }
+    
+
     
 }
