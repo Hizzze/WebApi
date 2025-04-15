@@ -10,5 +10,5 @@ public interface IUserRepository
     Task<User?> GetUserById(Guid id);
     Task<User> CreateUser([FromBody] UserResponse response);
     Task<Guid> UpdateUser(Guid id, [FromBody] UserResponse response);
-    Task<Guid> DeleteUser(Guid id);
+    Task<Guid> DeleteUser(Guid targetUserId, Guid currentUserId);
 }

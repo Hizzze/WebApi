@@ -3,6 +3,7 @@ using App.Database;
 using App.Extentions;
 using App.PasswordHasher;
 using App.Repository;
+using App.Service;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +18,10 @@ var jwtOptions = jwtSection.Get<JwtOptions>();
 builder.Services.AddApiAuthentication(Microsoft.Extensions.Options.Options.Create(jwtOptions));
 builder.Services.Configure<JwtOptions>(jwtSection);
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddDbContext<UserDbContext>(opt => opt
     .UseNpgsql(builder.Configuration.GetConnectionString(nameof(UserDbContext))));

@@ -17,12 +17,14 @@ public class UserController : ControllerBase
 {
     private readonly UserDbContext _dbContext;
     private readonly IUserRepository _userRepository;
+    private readonly ICurrentUserService _currentUserService;
     
 
-    public UserController(UserDbContext dbContext, IUserRepository userRepository)
+    public UserController(UserDbContext dbContext, IUserRepository userRepository, ICurrentUserService currentUserService)
     {
         _dbContext = dbContext;
         _userRepository = userRepository;
+        _currentUserService = currentUserService;
     }
     
     [HttpGet]
@@ -45,7 +47,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Owner")]
     public async Task<ActionResult<User>> Create([FromBody] UserResponse response)
     { 
         var user = await _userRepository.CreateUser(response);
@@ -53,7 +55,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Owner")]
     public async Task<ActionResult<Guid>> Update(Guid id, [FromBody]UserResponse response)
     {
         var userExists = await _dbContext.Users.AnyAsync(u => u.Id == id);
@@ -69,10 +71,12 @@ public class UserController : ControllerBase
 
 
     [HttpDelete("{id:guid}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Owner")]
     public async Task<ActionResult<Guid>> Delete(Guid id, CancellationToken token)
-    {
-      await _userRepository.DeleteUser(id);
+    { 
+        var currentUserId = _currentUserService.GetCurrentUserId();
+        
+      await _userRepository.DeleteUser(id, currentUserId);
       return NoContent();
     }
 }

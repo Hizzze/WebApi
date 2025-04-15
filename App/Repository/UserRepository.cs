@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using App.Abstractions;
 using App.Contracts;
 using App.Database;
+using App.Enums;
 using App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -72,17 +74,40 @@ public class UserRepository : IUserRepository
         return id;    
     }
 
-    public async Task<Guid> DeleteUser(Guid id)
+    public async Task<Guid> DeleteUser(Guid targetUserId, Guid currentUserId)
     {
-        var deletedRow = await _dbContext.Users.Where(u => u.Id == id)
-            .ExecuteDeleteAsync();
+        var currentUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == currentUserId);
+        var targetUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == targetUserId);
         
-        if(deletedRow == 0)
+        if (targetUser == null || currentUser == null)
         {
-            _logger.LogError($"User with id {id} not found");
+            _logger.LogError($"User with id {targetUserId} not found");
+            throw new Exception("User not found");
         }
         
-        _logger.LogInformation($"Delete user with id {id}");
-        return id;
+        if(currentUser.Role == UserRole.User)
+        {
+            _logger.LogError($"User with id {currentUserId} is not admin");
+            throw new Exception("You are not admin");
+        }
+        
+        if(currentUser.Role == UserRole.Admin && targetUser.Role != UserRole.User)
+        {
+            _logger.LogError($"Admin with id {currentUserId} cannot delete another admin");
+            throw new Exception("Admins can only delete Users");
+        }
+        
+        if(currentUser.Role == UserRole.Owner && targetUser.Role == UserRole.Owner)
+        {
+            _logger.LogError($"Owner with id {currentUserId} cannot delete another owner");
+            throw new Exception("Owners can delete Users and Admins");
+        }
+
+        _dbContext.Users.Remove(targetUser);
+        await _dbContext.SaveChangesAsync();
+        _logger.LogInformation($"Delete user with id {targetUserId}");
+        return targetUserId;
     }
+    
+ 
 }

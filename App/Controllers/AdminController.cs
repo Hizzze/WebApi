@@ -20,7 +20,7 @@ public class AdminController : ControllerBase
     }
     
     [HttpPost("change-role")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Owner")]
     public async Task<string> ChangeRole([FromBody] ChangeRoleDto changeRole)
     {
         await _adminRepository.ChangeRole(changeRole);
