@@ -58,6 +58,18 @@ namespace App.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("efdaa81f-9f1e-4e3d-8050-245cca05bf4b"),
+                            LastName = "Syzov",
+                            Login = "admin",
+                            Name = "Vlad",
+                            PasswordHash = "$2a$11$2G3iM7uLfkhhYIFuqEAlA.fLSX8oHpwCz00IBL747VLZvLYAqqcCO",
+                            Role = "Owner",
+                            Time = new DateTime(2025, 4, 15, 13, 36, 44, 988, DateTimeKind.Utc).AddTicks(7990)
+                        });
                 });
 #pragma warning restore 612, 618
         }

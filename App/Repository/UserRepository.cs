@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using App.Abstractions;
 using App.Contracts;
 using App.Database;
@@ -13,11 +12,13 @@ public class UserRepository : IUserRepository
 {
     private readonly UserDbContext _dbContext;
     private readonly ILogger<UserRepository> _logger;
+    private readonly ICurrentUserService _currentUserService;
 
-    public UserRepository(UserDbContext dbContext, ILogger<UserRepository> logger)
+    public UserRepository(UserDbContext dbContext, ILogger<UserRepository> logger, ICurrentUserService currentUserService)
     {
         _dbContext = dbContext;
         _logger = logger;
+        _currentUserService = currentUserService;
     }
 
     public async Task<List<User>> GetUsers()
@@ -65,10 +66,26 @@ public class UserRepository : IUserRepository
 
     public async Task<Guid> UpdateUser(Guid id,[FromBody] UserResponse response)
     {
-        var user = await _dbContext.Users.Where(u => u.Id == id)
+        
+        var currentUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == _currentUserService.GetCurrentUserId());
+        var targetUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+        await _dbContext.Users.Where(u => u.Id == id)
             .ExecuteUpdateAsync(s => s
                 .SetProperty(u => u.Name, response.Name)
                 .SetProperty(u => u.LastName, response.LastName));
+
+        
+        if(currentUser?.Role == UserRole.Admin && targetUser?.Role != UserRole.User)
+        {
+            _logger.LogError($"Admin with id {currentUser.Id} cannot update another admin or owner");
+            throw new Exception("Admins can only update Users");
+        }
+        
+        if(currentUser?.Role == UserRole.Owner && targetUser?.Role == UserRole.Owner)
+        {
+            _logger.LogError($"Owner with id {currentUser.Id} cannot update another owner");
+            throw new Exception("Owners can only update Users and Admins");
+        }
         
         _logger.LogInformation($"Update user with id {id}");
         return id;    

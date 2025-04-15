@@ -34,6 +34,7 @@ public class AuthRepository : IAuthRepository
             _logger.LogError($"User with login {registerDto.Login} already exists");
             throw new Exception("User with this login already exists");
         }
+        
 
         if (registerDto.Password != null)
         {

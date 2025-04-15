@@ -1,5 +1,8 @@
+using App.Abstractions;
 using App.Models;
 using App.Database;
+using App.Enums;
+using App.PasswordHasher;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,6 +23,18 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         builder.Property(x => x.Role)
             .HasConversion<string>()
             .IsRequired();
+
+
+        builder.HasData(new User
+        {
+            Id = Guid.Parse("efdaa81f-9f1e-4e3d-8050-245cca05bf4b"),
+            Name = "Vlad",
+            LastName = "Syzov",
+            Time = DateTime.UtcNow,
+            Login = "admin",
+            PasswordHash = "$2a$11$2G3iM7uLfkhhYIFuqEAlA.fLSX8oHpwCz00IBL747VLZvLYAqqcCO",
+            Role = UserRole.Owner
+        });
     }
     
     

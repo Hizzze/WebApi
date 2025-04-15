@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var jwtSection = builder.Configuration.GetSection(nameof(JwtOptions));
 var jwtOptions = jwtSection.Get<JwtOptions>();
 
+
 builder.Services.AddApiAuthentication(Microsoft.Extensions.Options.Options.Create(jwtOptions));
 builder.Services.Configure<JwtOptions>(jwtSection);
 builder.Services.AddEndpointsApiExplorer();

@@ -37,6 +37,18 @@ public class AdminRepository : IAdminRepository
             throw new Exception($"Invalid role: {changeRole.NewRole}");
         }
 
+        if (newRole == UserRole.Owner)
+        {
+            var existingOwner = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Role == UserRole.Owner);
+
+            if (existingOwner != null)
+            {
+                _logger.LogError("Attempt to create second Owner");
+                throw new Exception("Attempt to create second Owner");
+            }
+        }
+
         user.Role = newRole;
 
         await _dbContext.SaveChangesAsync();

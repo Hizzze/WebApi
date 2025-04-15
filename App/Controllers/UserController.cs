@@ -72,7 +72,7 @@ public class UserController : ControllerBase
 
     [HttpDelete("{id:guid}")]
     [Authorize(Roles = "Admin,Owner")]
-    public async Task<ActionResult<Guid>> Delete(Guid id, CancellationToken token)
+    public async Task<ActionResult<Guid>> Delete(Guid id)
     { 
         var currentUserId = _currentUserService.GetCurrentUserId();
         
