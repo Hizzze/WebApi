@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Um2VF3VJNBIKoKbxyQFJ+NZ7N2U8YNCEWdbt5z2MRSjRCOONV0woBwD/d/4G9JKlEaIHaBiFM/lUbraPz51TAw==",
+  "dgSpecHash": "g+ddwotXxrTQognt10x2qCBdg4opFoMsB8XV2oY/5WjlX5n9kj6WzX3gfAnCSOEfCnbwZSM/crjdJLbgOLC2uA==",
   "success": true,
-  "projectFilePath": "/Users/vlad/RiderProjects/WebApi/App/App.csproj",
+  "projectFilePath": "/Users/vlad/RiderProjects/FullApp/WebApi/App/App.csproj",
   "expectedPackageFiles": [
     "/Users/vlad/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/vlad/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",

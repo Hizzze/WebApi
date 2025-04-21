@@ -23,6 +23,11 @@ public class UserConfigurations : IEntityTypeConfiguration<User>
         builder.Property(x => x.Role)
             .HasConversion<string>()
             .IsRequired();
+        
+        builder.HasMany(x => x.Properties)
+            .WithOne(x => x.Owner)
+            .HasForeignKey(x => x.OwnerId)
+            .OnDelete(DeleteBehavior.Cascade);
 
 
         builder.HasData(new User

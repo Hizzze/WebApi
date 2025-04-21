@@ -28,6 +28,7 @@ builder.Services.AddDbContext<UserDbContext>(opt => opt
     .UseNpgsql(builder.Configuration.GetConnectionString(nameof(UserDbContext))));
 
 
+
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 
@@ -44,6 +45,17 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<JwtProvider>();
 builder.Services.AddScoped<IPasswordHash, PasswordHash>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:3000") // React клиент
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials(); // Обязательно для кук!
+    });
+});
 
 var app = builder.Build();
 
@@ -52,6 +64,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseCookiePolicy(new CookiePolicyOptions()
 {
@@ -65,6 +78,8 @@ app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("AllowFrontend");
+
 
 
 app.Run();

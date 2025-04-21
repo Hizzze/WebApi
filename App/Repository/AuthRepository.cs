@@ -64,10 +64,11 @@ public class AuthRepository : IAuthRepository
         if(user == null || !_passwordHash.Verify(loginDto.Password, user.PasswordHash))
         {
             _logger.LogError($"Invalid login or password for user {loginDto.Login}");
-            throw new Exception("Invalid login or password");
+            return null;
         }
         
         var token = _jwtProvider.GenerateToken(user);
+        
         
         _logger.LogInformation($"User {loginDto.Login} logged in successfully");
         

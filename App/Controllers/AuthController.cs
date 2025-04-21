@@ -36,10 +36,22 @@ public class AuthController : ControllerBase
         
     
        var token =  await _authRepository.LoginUser(loginDto);
-       
-        HttpContext.Response.Cookies.Append("cookies", token);
+
+       if (token == null)
+       {
+           return Unauthorized(new {message = "Invalid login or password"});
+       }
+
+       HttpContext.Response.Cookies.Append("cookies", token);
        
        return Ok(new {message = "User logged in successfully"});
+    }   
+    
+    [HttpPost("logout")]
+    public IActionResult Logout()
+    {
+       HttpContext.Response.Cookies.Delete("cookies");
+        return Ok(new {message = "User logged out successfully"});
     }
     
 

@@ -1,5 +1,6 @@
 using App.Configurations;
 using App.Models;
+using App.Models.Properties;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
@@ -13,6 +14,7 @@ public class UserDbContext : DbContext
     }
 
     public DbSet<User> Users { get; init; }
+    public DbSet<Property> Properties { get; init; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

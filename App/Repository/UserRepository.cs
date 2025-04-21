@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using App.Abstractions;
 using App.Contracts;
 using App.Database;
@@ -19,6 +20,7 @@ public class UserRepository : IUserRepository
         _dbContext = dbContext;
         _logger = logger;
         _currentUserService = currentUserService;
+
     }
 
     public async Task<List<User>> GetUsers()
@@ -33,6 +35,7 @@ public class UserRepository : IUserRepository
         return users;
 
     }
+    
 
     public async Task<User?> GetUserById(Guid id)
     {

@@ -1,4 +1,5 @@
 using App.Enums;
+using App.Models.Properties;
 
 namespace App.Models;
 
@@ -12,4 +13,6 @@ public class User
     public string? Name { get; init; } = string.Empty;
     public string? LastName { get; init; } = string.Empty;
     public DateTime? Time { get; init; } = DateTime.Now;
+    
+    public List<Property> Properties { get; init; } = new List<Property>();
 }

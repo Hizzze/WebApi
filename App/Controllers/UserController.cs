@@ -33,6 +33,7 @@ public class UserController : ControllerBase
         var usersList = await _userRepository.GetUsers();
         return Ok(usersList);
     }
+    
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<User?>> GetById(Guid id)

@@ -36,7 +36,7 @@ public static class ApiExtentions
         {
             opt.AddPolicy("AdminOnly", policy =>
             {
-                policy.RequireRole("Admin");
+                policy.RequireRole("Admin", "Owner");
             });
         });
     }
