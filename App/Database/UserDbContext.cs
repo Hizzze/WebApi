@@ -19,6 +19,9 @@ public class UserDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfigurations()); 
+        modelBuilder.ApplyConfiguration(new PropertyConfiguration());
+        modelBuilder.ApplyConfiguration(new PropertyDetailsConfiguration());
+        
         base.OnModelCreating(modelBuilder);
     }
 }

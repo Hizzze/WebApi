@@ -18,6 +18,10 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
             .WithMany(x => x.Properties)
             .HasForeignKey(x => x.OwnerId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(x => x.Details)
+            .WithOne(d => d.Property)
+            .HasForeignKey<PropertyDetails>(x => x.PropertyId)
+            .OnDelete(DeleteBehavior.Cascade);
         
         
     }

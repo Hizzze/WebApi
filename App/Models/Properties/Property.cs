@@ -1,3 +1,5 @@
+using App.Enums;
+
 namespace App.Models.Properties;
 
 public class Property
@@ -10,5 +12,10 @@ public class Property
     
     public Guid OwnerId { get; init; }
     public User? Owner { get; init; }
-
+    
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    
+    public PropertyType Type { get; init; } // Enum: Apartment, Room, etc.
+    
+    public PropertyDetails? Details { get; init; }  // Ссылка на параметры
 }
