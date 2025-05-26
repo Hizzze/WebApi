@@ -43,6 +43,7 @@ NLog.LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<IPropertiesRepository, PropertiesRepository>();
 builder.Services.AddScoped<JwtProvider>();
 builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 builder.Services.AddCors(options =>
@@ -73,7 +74,7 @@ app.UseCookiePolicy(new CookiePolicyOptions()
     Secure = CookieSecurePolicy.Always,
 });
 
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.MapControllers();
 app.UseAuthentication();

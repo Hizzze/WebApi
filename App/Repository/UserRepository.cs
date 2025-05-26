@@ -1,9 +1,9 @@
-using System.Security.Claims;
 using App.Abstractions;
 using App.Contracts;
 using App.Database;
 using App.Enums;
 using App.Models;
+using App.Models.PropertyDtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,6 +50,42 @@ public class UserRepository : IUserRepository
         _logger.LogInformation($"Get user with id {id}");
         return user;
     }
+    
+    public async Task<ActionResult<List<PropertyDto>>> GetProperties()
+    {
+        var userId = _currentUserService.GetCurrentUserId();
+
+        var properties = await _dbContext.Properties
+            .Include(p => p.Details)
+            .Include(p => p.Images)
+            .Where(p => p.OwnerId == userId)
+            .Select(p => new PropertyDto
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Description = p.Description,
+                Price = p.Price,
+                Location = p.Location,
+                Type = p.Type,
+                CreatedAt = p.CreatedAt,
+                Details = new PropertyDetailsDto
+                {
+                    Area = p.Details.Area,
+                    Rooms = p.Details.Rooms,
+                    Floor = p.Details.Floor,
+                    TotalFloors = p.Details.TotalFloors,
+                    HasBalcony = p.Details.HasBalcony,
+                    HasFurniture = p.Details.HasFurniture,
+                },
+                Images = p.Images.Select(i => new PropertyImageDto
+                {
+                    ImageUrl = i.ImageUrl
+                }).ToList()
+            })
+            .ToListAsync();
+
+        return properties;
+    }
 
     public async Task<User> CreateUser([FromBody] UserResponse response)
     {
@@ -78,17 +114,20 @@ public class UserRepository : IUserRepository
                 .SetProperty(u => u.LastName, response.LastName));
 
         
-        if(currentUser?.Role == UserRole.Admin && targetUser?.Role != UserRole.User)
-        {
-            _logger.LogError($"Admin with id {currentUser.Id} cannot update another admin or owner");
-            throw new Exception("Admins can only update Users");
-        }
+        // Если текущий пользователь - админ, то он может обновлять только пользователей
+        // Если текущий пользователь - владелец, то он может обновлять только пользователей и админов
         
-        if(currentUser?.Role == UserRole.Owner && targetUser?.Role == UserRole.Owner)
-        {
-            _logger.LogError($"Owner with id {currentUser.Id} cannot update another owner");
-            throw new Exception("Owners can only update Users and Admins");
-        }
+        // if(currentUser?.Role == UserRole.Admin && targetUser?.Role != UserRole.User)
+        // {
+        //     _logger.LogError($"Admin with id {currentUser.Id} cannot update another admin or owner");
+        //     throw new Exception("Admins can only update Users");
+        // }
+        //
+        // if(currentUser?.Role == UserRole.Owner && targetUser?.Role == UserRole.Owner)
+        // {
+        //     _logger.LogError($"Owner with id {currentUser.Id} cannot update another owner");
+        //     throw new Exception("Owners can only update Users and Admins");
+        // }
         
         _logger.LogInformation($"Update user with id {id}");
         return id;    
@@ -128,6 +167,8 @@ public class UserRepository : IUserRepository
         _logger.LogInformation($"Delete user with id {targetUserId}");
         return targetUserId;
     }
+    
+    
     
  
 }

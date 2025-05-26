@@ -4,13 +4,13 @@ public class PropertyDetails
 {
     public Guid Id { get; init; } = Guid.NewGuid();
 
-    public double Area { get; init; } // площадь
-    public int Rooms { get; init; } // количество комнат
-    public int Floor { get; init; } // этаж
-    public int TotalFloors { get; init; }
-    public bool HasBalcony { get; init; }
-    public bool HasFurniture { get; init; }
+    public double Area { get; set; } // площадь
+    public int Rooms { get; set; } // количество комнат
+    public int Floor { get; set; } // этаж
+    public int TotalFloors { get; set; }
+    public bool HasBalcony { get; set; }
+    public bool HasFurniture { get; set; }
     
-    public Guid PropertyId { get; init; }
-    public Property? Property { get; init; }
+    public Guid PropertyId { get; set; }
+    public Property? Property { get; set; }
 }

@@ -15,12 +15,14 @@ public class UserDbContext : DbContext
 
     public DbSet<User> Users { get; init; }
     public DbSet<Property> Properties { get; init; }
+    public DbSet<PropertyImage> PropertyImages { get; init; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfigurations()); 
         modelBuilder.ApplyConfiguration(new PropertyConfiguration());
         modelBuilder.ApplyConfiguration(new PropertyDetailsConfiguration());
+        modelBuilder.ApplyConfiguration(new PropertyImageConfiguration());
         
         base.OnModelCreating(modelBuilder);
     }

@@ -56,7 +56,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize(Roles = "Admin, Owner")]
+    /*[Authorize(Roles = "Admin, Owner")]*/
     public async Task<ActionResult<Guid>> Update(Guid id, [FromBody]UserResponse response)
     {
         var userExists = await _dbContext.Users.AnyAsync(u => u.Id == id);

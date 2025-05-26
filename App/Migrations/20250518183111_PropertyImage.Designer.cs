@@ -3,6 +3,7 @@ using System;
 using App.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace App.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250518183111_PropertyImage")]
+    partial class PropertyImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +36,8 @@ namespace App.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -163,7 +166,7 @@ namespace App.Migrations
                             Name = "Vlad",
                             PasswordHash = "$2a$11$2G3iM7uLfkhhYIFuqEAlA.fLSX8oHpwCz00IBL747VLZvLYAqqcCO",
                             Role = "Owner",
-                            Time = new DateTime(2025, 5, 18, 19, 37, 58, 955, DateTimeKind.Utc).AddTicks(2750)
+                            Time = new DateTime(2025, 5, 18, 18, 31, 11, 256, DateTimeKind.Utc).AddTicks(1250)
                         });
                 });
 

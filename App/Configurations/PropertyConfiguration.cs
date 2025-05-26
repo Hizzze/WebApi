@@ -10,7 +10,7 @@ public class PropertyConfiguration : IEntityTypeConfiguration<Property>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
-        builder.Property(x => x.Description).HasMaxLength(500).IsRequired();
+        builder.Property(x => x.Description).HasMaxLength(1000).IsRequired();
         builder.Property(x => x.Price).IsRequired();
         builder.Property(x => x.Location).HasMaxLength(100).IsRequired();
 
