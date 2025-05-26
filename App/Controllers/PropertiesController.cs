@@ -22,6 +22,15 @@ public class PropertiesController : ControllerBase
         var properties = await _propertiesRepository.GetAll();
         return Ok(properties);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<PropertyDto>> GetById(Guid id)
+    {
+        var property = await _propertiesRepository.GetPropertyById(id);
+        return Ok(property);
+
+    }
+
     [HttpPost("create")]
     public async Task<IActionResult> CreateProperty([FromForm] PropertyCreateDto dto, [FromForm] List<IFormFile> images)
     {

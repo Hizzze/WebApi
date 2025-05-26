@@ -33,6 +33,16 @@ public class PropertiesRepository : IPropertiesRepository
 
         return properties.Select(MapToDto).ToList();
     }
+    
+    public async Task<PropertyDto> GetPropertyById(Guid id)
+    {
+        var property = await _dbContext.Properties
+            .Include(p => p.Details)
+            .Include(p => p.Images)
+            .FirstOrDefaultAsync(p => p.Id == id);
+        _logger.LogInformation("Fetching property with ID: {Id}", id);
+        return property is null ? null : MapToDto(property);
+    }
 
     [HttpPost]
     public async Task<PropertyDto> Create(
