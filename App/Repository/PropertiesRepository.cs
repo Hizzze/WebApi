@@ -1,5 +1,6 @@
 using App.Abstractions;
 using App.Database;
+using App.Models;
 using App.Models.Properties;
 using App.Models.PropertyDtos;
 using Microsoft.AspNetCore.Mvc;
@@ -59,6 +60,8 @@ public class PropertiesRepository : IPropertiesRepository
             Location = dto.Location,
             OwnerId = userId,
             Type = dto.Type,
+            ContactEmail = dto.Contact?.Email,
+            ContactPhone = dto.Contact?.Phone,
             Details = new PropertyDetails
             {
                 Area = dto.Details.Area,
@@ -120,17 +123,19 @@ public class PropertiesRepository : IPropertiesRepository
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (property == null)
-            throw new Exception("Объявление не найдено");
+            throw new Exception("Property not found");
 
         if (property.OwnerId != userId)
-            throw new UnauthorizedAccessException("Нет доступа для редактирования");
+            throw new UnauthorizedAccessException("You don't have permission to update this property");
 
         property.Title = dto.Title;
         property.Description = dto.Description;
         property.Price = dto.Price;
         property.Location = dto.Location;
         property.Type = dto.Type;
-
+        property.ContactEmail = dto.Contact?.Email;
+        property.ContactPhone = dto.Contact?.Phone;
+        
         property.Details.Area = dto.Details.Area;
         property.Details.Rooms = dto.Details.Rooms;
         property.Details.Floor = dto.Details.Floor;
@@ -178,6 +183,11 @@ public class PropertiesRepository : IPropertiesRepository
             Type = property.Type,
             CreatedAt = property.CreatedAt,
             OwnerId = property.OwnerId,
+            Contact = new ContactDto
+            {
+                Email = property.ContactEmail,
+                Phone = property.ContactPhone
+            },
             Details = new PropertyDetailsDto
             {
                 Area = property.Details?.Area ?? 0,

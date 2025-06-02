@@ -14,5 +14,7 @@ public class PropertyDto
     public Guid OwnerId { get; set; }
 
     public PropertyDetailsDto Details { get; set; } = new();
+    public ContactDto? Contact { get; set; }
+
     public List<PropertyImageDto> Images { get; set; } = new();
 }

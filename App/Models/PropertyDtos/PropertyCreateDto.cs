@@ -11,4 +11,5 @@ public class PropertyCreateDto
     public PropertyType Type { get; set; }
 
     public PropertyDetailsDto Details { get; set; } = new();
+    public ContactDto? Contact { get; set; } 
 }

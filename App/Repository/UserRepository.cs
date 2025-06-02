@@ -77,6 +77,11 @@ public class UserRepository : IUserRepository
                     HasBalcony = p.Details.HasBalcony,
                     HasFurniture = p.Details.HasFurniture,
                 },
+                Contact = new ContactDto
+                {
+                    Email = p.ContactEmail,
+                    Phone = p.ContactPhone
+                },
                 Images = p.Images.Select(i => new PropertyImageDto
                 {
                     ImageUrl = i.ImageUrl

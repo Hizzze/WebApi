@@ -17,6 +17,9 @@ public class Property
     
     public PropertyType Type { get; set; } // Enum: Apartment, Room, etc.
     
+    public string? ContactEmail { get; set; }
+    public string? ContactPhone { get; set; }
+    
     public PropertyDetails? Details { get; set; }  // Ссылка на параметры
     public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
 
