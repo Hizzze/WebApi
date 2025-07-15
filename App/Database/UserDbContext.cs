@@ -17,6 +17,8 @@ public class UserDbContext : DbContext
     public DbSet<Property> Properties { get; init; }
     public DbSet<PropertyImage> PropertyImages { get; init; }
     
+    public DbSet<Favorite> Favorites { get; init; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfigurations()); 

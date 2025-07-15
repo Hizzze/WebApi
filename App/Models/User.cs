@@ -14,5 +14,7 @@ public class User
     public string? LastName { get; init; } = string.Empty;
     public DateTime? Time { get; init; } = DateTime.Now;
     
+    public List<Favorite> Favorites { get; init; } = new List<Favorite>();
+    
     public List<Property> Properties { get; init; } = new List<Property>();
 }

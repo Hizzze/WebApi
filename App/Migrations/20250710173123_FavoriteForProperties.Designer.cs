@@ -3,6 +3,7 @@ using System;
 using App.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace App.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250710173123_FavoriteForProperties")]
+    partial class FavoriteForProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +197,7 @@ namespace App.Migrations
                             Name = "Vlad",
                             PasswordHash = "$2a$11$2G3iM7uLfkhhYIFuqEAlA.fLSX8oHpwCz00IBL747VLZvLYAqqcCO",
                             Role = "Owner",
-                            Time = new DateTime(2025, 7, 13, 17, 45, 56, 541, DateTimeKind.Utc).AddTicks(660)
+                            Time = new DateTime(2025, 7, 10, 17, 31, 23, 296, DateTimeKind.Utc).AddTicks(7560)
                         });
                 });
 

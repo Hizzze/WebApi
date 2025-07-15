@@ -23,4 +23,6 @@ public class Property
     public PropertyDetails? Details { get; set; }  // Ссылка на параметры
     public ICollection<PropertyImage> Images { get; set; } = new List<PropertyImage>();
 
+    public List<Favorite> Favorites { get; set; } = new List<Favorite>();
+
 }
