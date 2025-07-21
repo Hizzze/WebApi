@@ -58,6 +58,8 @@ public class PropertiesRepository : IPropertiesRepository
             Description = dto.Description,
             Price = dto.Price,
             Location = dto.Location,
+            Latitude = dto.Latitude,
+            Longitude = dto.Longitude,
             OwnerId = userId,
             Type = dto.Type,
             ContactEmail = dto.Contact?.Email,
@@ -132,6 +134,8 @@ public class PropertiesRepository : IPropertiesRepository
         property.Description = dto.Description;
         property.Price = dto.Price;
         property.Location = dto.Location;
+        property.Latitude = dto.Latitude;
+        property.Longitude = dto.Longitude;
         property.Type = dto.Type;
         property.ContactEmail = dto.Contact?.Email;
         property.ContactPhone = dto.Contact?.Phone;

@@ -10,6 +10,9 @@ public class Property
     public decimal Price { get; set; }
     public string Location { get; set; } = string.Empty;
     
+    public double Latitude { get; set; }
+    public double Longitude { get; set; }
+    
     public Guid OwnerId { get; set; }
     public User? Owner { get; set; }
     

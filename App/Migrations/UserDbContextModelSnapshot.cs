@@ -67,10 +67,16 @@ namespace App.Migrations
                         .HasMaxLength(3500)
                         .HasColumnType("character varying(3500)");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
@@ -194,7 +200,7 @@ namespace App.Migrations
                             Name = "Vlad",
                             PasswordHash = "$2a$11$2G3iM7uLfkhhYIFuqEAlA.fLSX8oHpwCz00IBL747VLZvLYAqqcCO",
                             Role = "Owner",
-                            Time = new DateTime(2025, 7, 13, 17, 45, 56, 541, DateTimeKind.Utc).AddTicks(660)
+                            Time = new DateTime(2025, 7, 20, 17, 36, 46, 119, DateTimeKind.Utc).AddTicks(7050)
                         });
                 });
 
